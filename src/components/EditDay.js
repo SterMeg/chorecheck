@@ -45,8 +45,6 @@ class EditDay extends Component {
         });
     }
 
-    //Get chore, get day, get user.
-
     render() {
         return (
             <div className="card single-day">

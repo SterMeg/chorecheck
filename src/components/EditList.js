@@ -33,8 +33,6 @@ class EditList extends Component {
         this.clearInput()
     }
 
-    //after adding user, generate lists for added user
-    //get user by name, if name.length > 1 then run id check & return 
 
     generateList = async (user) => {
 

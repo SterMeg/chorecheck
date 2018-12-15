@@ -27,12 +27,6 @@ const Nav = (props) => {
                     color: '#F0C808'
                 }} className="nav-link">Edit Lists</NavLink>
             </li>
-            {/* <li className="nav-item">
-                <NavLink to="/Users" activeStyle={{
-                    fontWeight: 'bold',
-                    color: '#F0C808'
-                }} className="nav-link">Users</NavLink>
-            </li> */}
         </ul>
 
     )

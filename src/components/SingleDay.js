@@ -20,25 +20,7 @@ class SingleDay extends Component {
         await this.props.getLists()
         this.finishedAllChores()
     }
-    // finishedChore(firebaseKey, isComplete) {
-    //     console.log('being called');
-    //     if (isComplete === false) {
-    //         firebase
-    //             .database()
-    //             .ref(`users/${this.state.userID}/choreList/${this.props.list}/${this.props.dayName}/${firebaseKey}`)
-    //             .update({
-    //                 complete: true
-    //             });
-    //     } else if (isComplete === true) {
-    //         firebase
-    //             .database()
-    //             .ref(`users/${this.state.userID}/choreList/${this.props.list}/${this.props.dayName}/${firebaseKey}`)
-    //             .update({
-    //                 complete: false
-    //             });
-    //     }
-    // }
-
+    
     finishedAllChores() {
         let allComplete = this.props.list.chores.filter((chore) => {
             return chore.day === this.props.dayName
