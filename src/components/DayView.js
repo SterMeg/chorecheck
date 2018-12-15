@@ -1,27 +1,41 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-// import SingleDay from './SingleDay';
+import axios from 'axios'
+import SingleDay from './SingleDay';
 
 class DayView extends Component {
     state = {
         dayName: '',
-        currWeek: ''
+        currWeek: '',
+        lists: [],
+        weekArray: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     }
 
     componentDidMount() {
         moment().format();
-        const currDate = new Date;
+        const currDate = new Date();
         const currDay = currDate.getDay();
         const currWeek = moment(currDate).week();
 
-        const dayName = this.props.weekArray[currDay];
+        const dayName = this.state.weekArray[currDay];
 
         this.setState({
             dayName: dayName,
             currWeek: currWeek
         });
+        this.getLists()
     }
 
+    getLists = async () => {
+        try {
+            const response = await axios.get('/lists')
+
+            const lists = response.data.data
+            this.setState({ lists })
+        } catch (e) {
+            console.log(e)
+        }
+    }
   
     // componentDidUpdate() {
     //     if (this.props.userArray.length > 0 && this.state.currWeek % 2 === 0) {
@@ -32,8 +46,9 @@ class DayView extends Component {
 
 
     render() {
-        if (!this.props.users) {
-            return <div>Loading...</div>
+        const { lists } = this.state
+        if (this.state.lists.length < 1) {
+            return <div>Add some chores!</div>
         }
         return (
             <React.Fragment>
@@ -41,15 +56,15 @@ class DayView extends Component {
                 {/* <button className="btn btn-outline-secondary"onClick={() => this.props.switchList()}>Swap Chores</button>
                 <p>Chores lists will remain swapped until clicked again</p> */}
                 <div className="row">
-                    {this.props.users.map((user) => {
+                    {lists.map((list) => {
                         return (
-                            <div key={user._id} className="col-sm-6">
-                                <h4 className="mb-3">{user.name}</h4>
-                                {/* <SingleDay
-                                    userArray={this.props.userArray}
-                                    weekArray={this.props.weekArray}
-                                    list={i}
-                                    dayName={this.state.dayName} /> */}
+                            <div key={list.user._id} className="col-sm-6">
+                                <h4 className="mb-3">{list.user.name}</h4>
+                                <SingleDay
+                                    weekArray={this.state.weekArray}
+                                    list={list}
+                                    getLists={this.getLists}
+                                    dayName={this.state.dayName} />
 
                             </div>
                         )

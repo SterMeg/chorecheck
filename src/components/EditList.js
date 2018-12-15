@@ -82,7 +82,7 @@ class EditList extends Component {
                     <input type="text" className="form-control" name="user" placeholder="Add user" onChange={this.handleChange} value={user} />
                     <button className="btn btn-outline-warning btn-sm"  onClick={this.addUser}>Add User</button>
                     {lists.length > 0 &&
-                    <ul className="list-group">
+                    <div className="row">
                         {lists.map((list) => {
                             return (
                                 <ListLayout
@@ -95,7 +95,7 @@ class EditList extends Component {
                                 />
                             )
                         })}
-                    </ul>
+                    </div>
                     }
                 </React.Fragment>
             // </div>

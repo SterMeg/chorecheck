@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios'
 import EditDay from './EditDay';
 
 class ListLayout extends Component {
@@ -11,9 +10,8 @@ class ListLayout extends Component {
         weekArray } = this.props
   
         return (
-            <li className="list-group-item chore-list-item" key={user._id}>
-                <p className="chore-name">{user.name}</p>
-                <div className="row">
+            <div className="col-md-6" key={user._id}>
+                <h4 className="text-center mb-5 chore-name">{user.name}</h4>
                     {weekArray.map((day) => {
                         return <EditDay 
                             day={day}
@@ -22,9 +20,8 @@ class ListLayout extends Component {
                             getLists={this.props.getLists}
                         />
                     })}
-                </div>
                 <button className="remove-chore btn btn-outline-warning btn-sm" onClick={() => removeUser(user._id, list._id)}>Remove</button>
-            </li>
+            </div>
         )
     }
 

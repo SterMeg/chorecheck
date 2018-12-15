@@ -8,12 +8,7 @@ class EditDay extends Component {
 
         this.state = {
             chore: '',
-            choreList: []
         }
-    }
-
-    componentDidMount() {
-
     }
 
     handleSubmit = async e => {
@@ -35,8 +30,13 @@ class EditDay extends Component {
         this.setState({ chore: '' })
     }
 
-    removeChore = () => {
-        
+    removeChore = async choreId => {
+        try {
+            await axios.delete(`/lists/${this.props.list._id}/chores/${choreId}`)
+        } catch(e) {
+            console.log(e)
+        }
+        this.props.getLists()
     }
 
     handleChange = (e) => {
@@ -49,26 +49,24 @@ class EditDay extends Component {
 
     render() {
         return (
-            <div className="col-md-4">
-                <div className="card single-day">
-                    <div className="card-header">{this.props.day}</div>
-                    <div className="card-body">
-                        <form action="" onSubmit={this.handleSubmit}>
-                            <input type="text" className="form-control" name="chore" placeholder="Add chore" onChange={this.handleChange} value={this.state.chore} />
-                        </form>
-                        <h6 className="card-title" >Chores for day</h6>
-                        <ul className="list-group">
-                            {this.props.list.chores.filter((chore) => {
-                                return chore.day === this.props.day 
-                            }).map((chore) => {
-                                return <ChoreListItem
-                                    key={chore._id}
-                                    chore={chore.chore}
-                                    // removeChore={this.removeChore}
-                                    id={chore._id} />
-                            })}
-                        </ul>
-                    </div>
+            <div className="card single-day">
+                <div className="card-header">{this.props.day}</div>
+                <div className="card-body">
+                    <form action="" onSubmit={this.handleSubmit}>
+                        <input type="text" className="form-control" name="chore" placeholder="Add chore" onChange={this.handleChange} value={this.state.chore} />
+                    </form>
+                    <h6 className="card-title" >Chores for day</h6>
+                    <ul className="list-group">
+                        {this.props.list.chores.filter((chore) => {
+                            return chore.day === this.props.day 
+                        }).map((chore) => {
+                            return <ChoreListItem
+                                key={chore._id}
+                                chore={chore.chore}
+                                removeChore={this.removeChore}
+                                id={chore._id} />
+                        })}
+                    </ul>
                 </div>
             </div>
         )

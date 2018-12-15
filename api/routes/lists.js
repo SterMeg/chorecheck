@@ -69,4 +69,29 @@ router.delete('/:id', async (req, res, next) => {
     }
 })
 
+router.delete('/:id/chores/:choreId', async (req, res, next ) => {
+    const { id, choreId } = req.params
+
+    try {
+        const doc = await List.findByIdAndUpdate({ _id: id},
+            {$pull: {chores: {
+                _id: choreId
+            }}})
+        res.status(202).send({ data: [doc] })
+    } catch(e) {
+        next(e)
+    }
+})
+
+router.patch('/:id/chores/:choreId/:completed', async (req, res, next) => {
+    const { id, choreId, completed } = req.params
+    try {
+        const doc = await List.findOneAndUpdate({ "_id": id, "chores._id": choreId }, {$set: {"chores.$.complete": completed}})
+        res.status(202).send({ data: [doc]})
+    } catch(e) {
+        next(e)
+    }
+})
+
+
 module.exports = router
