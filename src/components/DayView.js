@@ -30,7 +30,7 @@ class DayView extends Component {
         try {
             const response = await axios.get('/lists')
 
-            const lists = response.data.data
+            const lists = response.data.data[0]
             this.setState({ lists })
         } catch (e) {
             console.log(e)
