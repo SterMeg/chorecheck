@@ -21,6 +21,10 @@ const listSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    date: {
+        type: Date,
+        default: new Date()
+    },
     chores: [choreSchema]
 })
 

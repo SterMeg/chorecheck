@@ -6,9 +6,9 @@ const { List, Chore } = require('../models/List')
 //GET /lists
 router.get('/', async (req, res, next) => {
     try {
-        const docs = await List.find().populate('user')
+        const docs = await List.find().populate('user').sort({date: 'desc'})
         res.status(200).send({
-            data: docs
+            data: [docs]
         })
     } catch(e) {
         next(e)
